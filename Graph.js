@@ -1,4 +1,4 @@
-//https://medium.com/@ziyoshams/graphs-in-javascript-cc0ed170b156
+// https://medium.com/@ziyoshams/graphs-in-javascript-cc0ed170b156
 class Graph {
   constructor() {
     this.adj = new Map();
@@ -22,8 +22,77 @@ Graph.prototype.addEdge = function(vertex, node) {
       }
     }
 }
+///review this loop and how it pertains to map
+Graph.prototype.createVisitedObject = function() {
+  const obj = {};
 
-  const graph = new Graph();
+  for (let key of this.adj.keys()) {
+    obj[key] = false;
+
+  }
+  return obj;
+}
+//YOU PICK STARTING NODE
+Graph.prototype.breadthFirstSearch = function(startingNode) {
+  let visited = this.createVisitedObject();
+  //1) Enque theFirst Node
+  let queue = [startingNode];
+
+
+  const results = [];
+  visited[startingNode] = true;
+
+  while(queue.length) {
+    //2) dequewed
+    let current = queue.pop();
+    //3) write /cb
+    results.push(current);
+   //4grab edges
+    //5)go through edges
+    //6 set unvisited to true
+    let edgesArray = this.adj.get(current);
+
+    edgesArray.forEach((vertex) => {
+      //BALLER if statement
+      if (!visited[vertex]) {
+        visited[vertex] = true;
+        //ADDING to the queue
+        queue.unshift(vertex)
+      }
+    })
+  }
+
+  return results;
+}
+//think about
+
+Graph.prototype.testBread = function(startingNode) {
+  let visited = this.createVisitedObject();
+  //enqueu the first
+  const queue = [startingNode];
+  const results = [];
+
+  visited[startingNode] = true;
+
+  while(queue.length) {
+    //dequeue the first
+    let popped = queue.popped();
+    //now we write
+    results.push(popped);
+    //now we get the edges
+    const edges = this.adj.get(popped);
+    edges.forEach((vertex) => {
+      //we go across (Breadth) the whole array and set them to true. 7:35
+      if (!visited[vertex]) {
+        visited[vertex] = true;
+        //add to the front of the queue??
+
+      }
+    });
+  }
+}
+
+const graph = new Graph();
 let arr = 'ABCDEF'.split('');
 
 arr.forEach((vertex) =>{
@@ -38,14 +107,6 @@ graph.addEdge('D', 'E');
 graph.addEdge('E', 'F');
 graph.addEdge('E', 'C');
 graph.addEdge('C', 'F');
-console.log(graph);
-
-// BFS in Graphs is almost the same as in Binary Search Tree, but there is a little difference. The main difference is that you can have loops in Graphs.
-//  You have to keep track of the nodes that you visit. Here is how you do it:
-// BFS gets a starting node as an argument. (e.g 'A' )
-// initialize an empty object called visited .
-// initialize an empty array called q which will be used as a Queue.
-// mark the starting node as visited. ( visited = {'A': true} )
-// put the starting node in the queue. ( q = ['A'] )
-// loop until queue is empty
-// Inside the loop:
+// graph.createVisitedObject();
+// graph.breadthFirstSearch('A');
+graph.testBread('A')
