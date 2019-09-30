@@ -60,12 +60,12 @@ BinarySearchArray.prototype.findHigh = function (nums, target) {
 
 
 
-let data = [1, 5, 5, 5, 5, 9];
+let data = [1,2,5,5,5,6,6,9]
 
 const array = new BinarySearchArray();
 
-console.log(array.findLow(data, 5))
-console.log(array.findHigh(data, 5))
+console.log(array.findLow(data, 6))
+console.log(array.findHigh(data, 6))
 
 
 
