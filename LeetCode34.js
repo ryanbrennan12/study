@@ -1,31 +1,71 @@
+class BinarySearchArray {
+  constructor() {
 
+  }
+}
 
-var searchRange = function(nums, target) {
-  //first we could do a binary search to find our target.
+BinarySearchArray.prototype.regularSearch = function (array, target) {
   let floor = 0;
-  let ceiling = nums.length;
+  let ceiling = array.length;
+  let count = 0
 
-  //we want to find the left-most target
-  while(floor <= ceiling) {
+  while (floor <= ceiling) {
     let mid = Math.floor((ceiling + floor) / 2);
-    // console.log(nums[mid])
-    if (nums[mid] === target) {
+    count++;
+    if (array[mid] === target) {
+      return [{
+        'found@index': mid,
+        'numOfoperations': count,
+      }, `Base log 2 of ${array.length} is ${count}ish`]
 
-      return mid
-    }
 
-    if (nums[mid] < target) {
+    } else if (array[mid] < target) {
       floor = mid + 1;
-    } else if (nums[mid] > target) {
+    } else {
       ceiling = mid - 1;
     }
   }
+}
+BinarySearchArray.prototype.findLow = function (nums, target) {
+  let low = 0;
+  let high = nums.length;
+  //huge
+  while (low < high) {
+    let mid = Math.floor((high + low) / 2);
 
-};
+    if (nums[mid] === target || nums[mid] > target) {
+      high = mid;
+    } else {
+      low = mid + 1;
+    }
+  }
+  return low
+}
+BinarySearchArray.prototype.findHigh = function (nums, target) {
+  let low = 0;
+  let high = nums.length;
 
-let nums = [5,7,7,8,8,10,77];
-let target = 77;
+  while(low < high) {
+    let mid = Math.floor((high + low) / 2);
 
-console.log(searchRange(nums, target))
+    if (nums[mid] === target || nums[mid] < target) {
+      low = mid;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  return high
+}
+
+
+
+let data = [1, 5, 5, 5, 5, 9];
+
+const array = new BinarySearchArray();
+
+console.log(array.findLow(data, 5))
+console.log(array.findHigh(data, 5))
+
 
 
