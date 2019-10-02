@@ -45,8 +45,8 @@ BinarySearchArray.prototype.findHigh = function (nums, target) {
   let low = 0;
   let high = nums.length;
 
-  while(low < high) {
-    let mid = Math.floor((high + low) / 2);
+  while(low <= high) {
+    let mid = Math.floor(low + (high + low) / 2);
 
     if (nums[mid] === target || nums[mid] < target) {
       low = mid;
@@ -64,8 +64,9 @@ let data = [1,2,5,5,5,6,6,9]
 
 const array = new BinarySearchArray();
 
-console.log(array.findLow(data, 6))
-console.log(array.findHigh(data, 6))
+console.log(array.findLow(data, 5))
+console.log(array.findHigh(data, 5))
+
 
 
 

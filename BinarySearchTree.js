@@ -125,7 +125,22 @@ BinarySearchTree.prototype.findKsmallest = function (k) {
 
   return Math.min(root, kSmallest);
 }
+BinarySearchTree.prototype.findMinDepth = function() {
+  if (!this.root) return 0;
 
+  const queue = [{ node: this.root, height: 1 }];
+
+  while (queue.length) {
+    const current = queue.shift();
+
+    if (!current.node.left && !current.node.right) {
+      console.log(current)
+      return current.height;
+    }
+    if (current.node.left) queue.push({ node: current.node.left, height: current.height + 1 });
+    if (current.node.right) queue.push({ node: current.node.right, height: current.height + 1 });
+  }
+}
 
 
 const tree = new BinarySearchTree();
@@ -136,7 +151,7 @@ tree.insert(3);
 tree.insert(6);
 tree.insert(9);
 tree.insert(15);
-console.log(tree)
-tree.breadthFirstSearch()
+console.log(tree.findMinDepth())
+// tree.breadthFirstSearch()
 // tree.inOrderTraversal();
 // tree.preOrderTraversal();
